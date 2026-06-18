@@ -289,13 +289,13 @@
       var prices = { "Pan integral": 1.5, "Aguacate": 1.2, "Huevo": 0.2, "Aceite de oliva": 6, "Sal": 0.5, "Yogur natural": 0.8, "Granola": 4, "Arándanos": 4, "Miel": 4, "Avena": 2, "Plátano": 0.3, "Leche": 0.9, "Canela": 2, "Proteína en polvo": 25, "Mantequilla de cacahuete": 4, "Manzana": 0.4, "Nueces": 6, "Pechuga de pollo": 7, "Arroz": 1.5, "Calabacín": 1.5, "Zanahoria": 1, "Limón": 0.5, "Lentejas": 2, "Cebolla": 0.5, "Patata": 1, "Tomate triturado": 1.5, "Tomate": 1, "Salmón": 12, "Ajo": 0.5, "Pasta integral": 1.5, "Pavo en taquitos": 5, "Espinacas": 2, "Tomate cherry": 2.5, "Quinoa": 4, "Garbanzos cocidos": 2, "Pepino": 1, "Lechuga": 1.5, "Lechuga romana": 2, "Parmesano": 4, "Pan": 1.5, "Merluza": 8, "Pimiento": 1.5, "Nata": 2, "Calabaza": 2.5, "Jengibre": 2, "Gambas": 10, "Espárragos": 4, "Tortillas de maíz": 2.5, "Pavo picado": 5, "Berenjena": 2, "Carne picada": 6, "Queso rallado": 3, "Hummus": 3, "Pan de pita": 2, "Jamón serrano": 6 };
       var html = '<div class="grid md:grid-cols-2 gap-6"><div class="bg-white rounded-2xl p-6 shadow"><h4 class="font-bold text-slate-800 mb-4"><i class="fa-solid fa-receipt text-emerald-500 mr-2"></i>Desglose de costes</h4><div class="space-y-2 max-h-96 overflow-y-auto scrollbar-thin">';
       var totalCostItems = Object.entries(shopping).map(function(e) { var ing = e[0], qty = e[1]; var price = prices[ing] || 2; return { ing: ing, qty: qty, cost: qty * price }; }).sort(function(a, b) { return b.cost - a.cost; });
-      totalCostItems.forEach(function(item) { html += '<div class="flex justify-between items-center p-2 rounded-lg bg-slate-50 text-sm"><span class="text-slate-700">' + item.ing + '</span><span class="font-semibold text-emerald-600">' + item.cost.toFixed(2) + '€</span></div>'; });
-      html += '</div></div><div class="space-y-4"><div class="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl p-6 shadow text-white"><div class="text-sm opacity-90">Coste total estimado</div><div class="text-4xl font-bold">' + totalCost.toFixed(2) + '€</div><div class="text-sm opacity-90 mt-2">para ' + persons + ' persona(s) · 7 días</div></div>';
-      html += '<div class="bg-white rounded-2xl p-6 shadow"><div class="text-sm text-slate-600 mb-1">Coste por persona / día</div><div class="text-2xl font-bold text-slate-800">' + (totalCost / persons / 7).toFixed(2) + '€</div></div>';
-      html += '<div class="bg-white rounded-2xl p-6 shadow"><div class="text-sm text-slate-600 mb-1">Presupuesto</div><div class="text-2xl font-bold text-slate-800">' + budget + '€</div>';
+      totalCostItems.forEach(function(item) { html += '<div class="flex justify-between items-center p-2 rounded-lg bg-slate-50 text-sm"><span class="text-slate-700">' + item.ing + '</span><span class="font-semibold text-emerald-600">' + item.cost.toFixed(2) + 'RD$</span></div>'; });
+      html += '</div></div><div class="space-y-4"><div class="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl p-6 shadow text-white"><div class="text-sm opacity-90">Coste total estimado</div><div class="text-4xl font-bold">' + totalCost.toFixed(2) + 'RD$</div><div class="text-sm opacity-90 mt-2">para ' + persons + ' persona(s) · 7 días</div></div>';
+      html += '<div class="bg-white rounded-2xl p-6 shadow"><div class="text-sm text-slate-600 mb-1">Coste por persona / día</div><div class="text-2xl font-bold text-slate-800">' + (totalCost / persons / 7).toFixed(2) + 'RD$</div></div>';
+      html += '<div class="bg-white rounded-2xl p-6 shadow"><div class="text-sm text-slate-600 mb-1">Presupuesto</div><div class="text-2xl font-bold text-slate-800">' + budget + 'RD$</div>';
       var barWidth = Math.min(totalCost/budget*100, 100), barColor = totalCost > budget ? 'bg-rose-500' : 'bg-emerald-500';
       html += '<div class="mt-2 macro-bar"><div class="macro-fill ' + barColor + '" style="width:' + barWidth + '%"></div></div>';
-      var statusText = totalCost > budget ? '⚠️ Supera el presupuesto en ' + (totalCost-budget).toFixed(2) + '€' : '✅ Dentro del presupuesto';
+      var statusText = totalCost > budget ? '⚠️ Supera el presupuesto en ' + (totalCost-budget).toFixed(2) + 'RD$' : '✅ Dentro del presupuesto';
       var statusColor = totalCost > budget ? 'text-rose-600' : 'text-emerald-600';
       html += '<div class="text-xs mt-1 ' + statusColor + ' font-semibold">' + statusText + '</div></div></div></div>';
       container.innerHTML = html;
@@ -312,7 +312,7 @@
       doc.setFontSize(20); doc.setTextColor(16, 185, 129);
       doc.text("FitMenu - Menú Semanal", 20, 20);
       doc.setFontSize(10); doc.setTextColor(100);
-      doc.text("Para " + persons + " persona(s) · Coste: " + totalCost.toFixed(2) + "€", 20, 28);
+      doc.text("Para " + persons + " persona(s) · Coste: " + totalCost.toFixed(2) + "RD$", 20, 28);
       var y = 40;
       weekDays.forEach(function(day) {
         if (y > 260) { doc.addPage(); y = 20; }
@@ -354,7 +354,7 @@
       var unit = qty >= 1 ? qty.toFixed(1) + " uds" : (qty*1000).toFixed(0) + " g/ml";
       text += "  • " + ing + ": " + unit + "\n";
     });
-    text += "\n Coste estimado: " + totalCost.toFixed(2) + "€\n";
+    text += "\n Coste estimado: " + totalCost.toFixed(2) + "RD$\n";
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function() {
         var btn = document.getElementById('btn-copy');
